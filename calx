@@ -1,0 +1,201 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Calc
+{
+    public class Calc
+    {
+        #region Variables
+        //Constantes que definen las operaciones y caracteres permitidos por la aplicacion.
+        private readonly List<char> operators = new List<char> { '+', '*', '/', '-' };
+        private readonly List<char> digits = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.' };
+        //Variables que se utilizaran durante el proceso.
+        private Stack<char> operatorStack = new Stack<char>();
+        private Stack<double> numberStack = new Stack<double>();
+        private StringBuilder numBuilder = new StringBuilder();
+        #endregion
+
+        #region Metodos
+        /// <summary>
+        ///     Metodo Principal que inicializa el proceso de calculo.
+        /// </summary>
+        /// <param name="value">Cadena con la Operacion a realizar.</param>
+        /// <returns>Resultado de la Operacion</returns>
+        public double Calculation(string value)
+        {
+            return Convert.ToDouble(ExpressionEvaluator(FormattedExpression(value))); ;
+        }
+
+        /// <summary>
+        ///     Metodo que se encarga de evaluar la expresion, ya que en la jerarquia de operadores
+        ///     primero se ejecutan los signos "()" dandole mayor importancia a las multiplicaciones y divisiones
+        ///     que a las sumas o restas.
+        /// </summary>
+        /// <param name="exp">Cadena con la Operacion a realizar</param>
+        /// <returns>Expresion ya Operada</returns>
+        public string ExpressionEvaluator(string exp)
+        {
+            string result = "";
+
+            try
+            {
+                for (int i = 0; i < exp.Length; i++)
+                {
+                    if (operators.Contains(exp[i]))
+                    {
+                        operatorStack.Push(exp[i]);
+                    }
+                    else if (digits.Contains(exp[i]))
+                    {
+                        while (i != exp.Length && digits.Contains(exp[i]))
+                        {
+                            numBuilder.Append(exp[i++]);
+                        }
+
+                        numberStack.Push(Convert.ToDouble(numBuilder.ToString()));
+                        numBuilder.Clear();
+                        i--;
+                    }
+                    else if (exp[i] == ')')
+                    {
+                        ArithmeticComputation();
+                    }
+                }
+
+                while (numberStack.Count != 1 && operatorStack.Count != 0)
+                {
+                    ArithmeticComputation();
+                }
+
+                result = Convert.ToString(numberStack.Pop());
+            }
+            catch (Exception ex) {
+                result = "0";
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        ///     Realiza las distintas operaciones de acuerdo el signo de operacion encontrado
+        ///     en la expresion.
+        /// </summary>
+        public void ArithmeticComputation()
+        {
+            if (operatorStack.Peek() == '+')
+            {
+                numberStack.Push(numberStack.Pop() + numberStack.Pop());
+                operatorStack.Pop();
+            }
+            else if (operatorStack.Peek() == '*')
+            {
+                numberStack.Push(numberStack.Pop() * numberStack.Pop());
+                operatorStack.Pop();
+            }
+            else if (operatorStack.Peek() == '/')
+            {
+                numberStack.Push(numberStack.Pop() / (double)numberStack.Pop());
+                operatorStack.Pop();
+            }
+            else if (operatorStack.Peek() == '-')
+            {
+                numberStack.Push(numberStack.Pop() - (double)numberStack.Pop());
+                operatorStack.Pop();
+            }
+        }
+
+        /// <summary>
+        ///     Formatea la expresion, se encarga de agregar los signos "()" a las multiplicaciones y divisiones
+        ///     para generar la jerarquia de operaciones ya que siendo esta una calculadora basica, carece de la opcion de ingresar
+        ///     estos caracteres desde el aplicativo.
+        /// </summary>
+        /// <param name="exp">Cadena con la Expresion matematica</param>
+        /// <returns>Cadena ya formateada</returns>
+        public string FormattedExpression(string exp)
+        {
+            int temp = 0;
+            for (int i = 0; i < exp.Length; i++)
+            {
+                if (exp[i] == '*' || exp[i] == '/')
+                {
+                    temp = i;
+                    i++;
+
+                    if (digits.Contains(exp[i]))
+                    {
+                        while (i != exp.Length && digits.Contains(exp[i]))
+                        {
+                            i++;
+                        }
+
+                        if (i == exp.Length || exp[i] != ')')
+                        {
+                            exp = exp.Insert(i, ")");
+                        }
+                        else if (exp[i] == ')')
+                        {
+                            while (temp != 0 && digits.Contains(exp[temp - 1]))
+                            {
+                                temp--;
+                            }
+
+                            if (temp == 0 || exp[temp - 1] != '(')
+                            {
+                                exp = exp.Insert(i, ")");
+                            }
+                        }
+                        else if (exp[i] == '(')
+                        {
+                            int temp2 = i;
+
+                            while (temp != 0 && digits.Contains(exp[temp - 1]))
+                            {
+                                temp--;
+                            }
+
+                            if (temp == 0 || exp[temp - 1] != '(')
+                            {
+                                var braceStack = new Stack<char>();
+                                var innerCurls = false;
+
+                                for (int j = temp2; j < exp.Length; j++)
+                                {
+                                    if (exp[j] == '(')
+                                    {
+                                        braceStack.Push('(');
+
+                                        if (braceStack.Count == 2)
+                                        {
+                                            innerCurls = true;
+                                        }
+                                        else if (exp[j] == ')')
+                                        {
+                                            braceStack.Pop();
+                                        }
+
+                                        if (innerCurls) { break; }
+
+                                        if (braceStack.Count == 0 && !innerCurls)
+                                        {
+                                            exp = exp.Insert(j + 1, ")");
+                                            break;
+                                        }
+                                    }
+                                }
+                                exp = exp.Insert(i, ")");
+                            }
+                        }
+                    }
+                }
+            }
+            return exp;
+        }
+        #endregion
+    }
+}
+Calc.cs
+Abrir con Documentos de Google
+Mostrando Calc.cs
