@@ -1,0 +1,65 @@
+Estructuras de Datos - Conceptos básicos
+Estructura de datos es una forma de datos organizados de tal manera que pueda ser utilizado de manera eficiente. Este tutorial explica los términos básicos relacionados con la estructura de datos.
+Definición de datos
+Definición de datos define un dato particular, con las siguientes características.
+•	Atómica (Atomic)- Definición debe definir un solo concepto
+•	Trazable (Traceable)- Definición debe ser capaz de ser asignada a un elemento de datos.
+•	Precisa (Accurate)- Definición debe ser inequívoco.
+•	Claro y conciso (Clear and Concise)- Definición debe ser comprensible.
+Objeto de datos
+Objeto de datos representa un objeto que tiene un conjunto de datos.
+Tipo de datos
+tipo de datos se forma de clasificar diversos tipos de datos tales como número entero, cadena, etc., que determina los valores que se pueden utilizar con el tipo correspondiente de los datos, el tipo de operaciones que se pueden realizar en el tipo correspondiente de los datos. Tipo de datos de dos tipos -
+•	Incorporado Tipo de Datos (Built-in Data Type)
+•	Tipos de datos derivados (Derived Data Type)
+Incorporado Tipo de Datos
+Se conocen esos tipos de datos para los que una lengua está construido con un apoyo tan incorporado en los tipos de datos. Por ejemplo, la mayoría de los idiomas ofrece integradas siguientes tipos de datos.
+•	Enteros (Integers)
+•	Booleano (verdadero, falso),( Boolean (true, false)
+•	Flotantes (Los números decimales)( Floating (Decimal numbers)
+•	Carácter y Cuerdas (Character and Strings)
+Tipos de datos derivados
+Esos tipos de datos que son independiente de la implementación, ya que pueden ser implementadas en una u otra manera se conocen como tipos de datos derivados. Estos tipos de datos se construyen normalmente mediante la combinación de las operaciones primarias o incorporados en los tipos de datos y asociados en ellos. Por ejemplo -
+•	Lista (List)
+•	Formación (Array)
+•	Apilar (Stack)
+•	Cola (Queue)
+Operaciones básicas
+Los datos en las estructuras de datos son procesados por ciertas operaciones.La estructura de datos particular elegido en gran medida depende de la frecuencia de la operación que debe realizarse en la estructura de datos.
+•	Atravesando (Traversing)
+•	Buscando (Searching)
+•	Inserción (Insertion)
+•	Supresión (Deletion)
+•	Clasificación (Sorting)
+•	La fusión de (Merging)
+
+
+Basic Operations
+Following are the basic operations supported by an array.
+Array es un contenedor que puede contener número fijo de elementos y estos elementos deben ser de mismo tipo. La mayor parte de la estructura de datos hacen uso de la matriz para implementar sus algoritmos. Los siguientes son términos importantes para entender los conceptos de la matriz.
+•	Elemento (Element)- Cada elemento almacenado en una matriz se llama un elemento.
+•	Índice (Index) - Cada ubicación de un elemento de una matriz tiene un índice numérico que se utiliza para identificar el elemento.
+Operaciones básicas
+•	Traverse − print all the array elements one by one. ( Traverse - imprimir todos los elementos de matriz de uno en uno.)
+•	Insertion − add an element at given index.( Inserción - añadir un elemento en el índice especificado.)
+•	Deletion − delete an element at given index.( Supresión - eliminar un elemento en el índice dado.)
+•	Search − search an element using given index or by value.( Buscar - buscar un elemento mediante el índice dado o por valor.)
+•	Update − update an element at given index.( Actualización - actualizar un elemento en el índice dad
+
+
+
+
+
+
+Data Type	Default Value
+bool	False
+char	0
+int	0
+float	0.0
+double	0.0f
+void	
+wchar_t	0
+
+
+
+
